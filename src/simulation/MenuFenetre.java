@@ -38,7 +38,7 @@ public class MenuFenetre extends JMenuBar {
 		JMenuItem menuQuitter = new JMenuItem(MENU_FICHIER_QUITTER);
 
 		menuCharger.addActionListener((ActionEvent e) -> {
-			JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir") + "\\src\\src\\ressources");
+			JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir") + "\\src\\ressources");
 			fileChooser.setDialogTitle("S�lectionnez un fichier de configuration");
 			fileChooser.setAcceptAllFileFilterUsed(false);
 

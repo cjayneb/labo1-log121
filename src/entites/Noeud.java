@@ -127,7 +127,7 @@ public class Noeud {
 
     public BufferedImage getIcone(String path) {
         try {
-            File file = new File(System.getProperty("user.dir") + "\\src\\" + path);
+            File file = new File(path);
             return ImageIO.read(file);
         } catch (IOException e) {
             throw new RuntimeException(e);

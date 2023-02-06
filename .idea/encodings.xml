@@ -2,18 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/simulation/Environnement.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/simulation/Environnement.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/simulation/FenetrePrincipale.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/simulation/FenetreStrategie.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/simulation/PanneauPrincipal.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/simulation/PanneauStrategie.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/simulation/Simulation.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/Environnement.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/Environnement.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/FenetrePrincipale.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/FenetrePrincipale.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/FenetreStrategie.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/FenetreStrategie.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/PanneauPrincipal.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/PanneauPrincipal.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/PanneauStrategie.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/PanneauStrategie.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/Simulation.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/src/simulation/Simulation.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/simulation/Simulation.java" charset="windows-1252" />
   </component>
 </project>
