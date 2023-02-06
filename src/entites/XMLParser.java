@@ -20,7 +20,6 @@ import static simulation.Simulation.chaine;
 public class XMLParser {
 
     private static final int NOMBRE_TYPE_USINE = 5;
-    private static final int NOMBRE_USINE = 7;
     private DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     private DocumentBuilder db = null;
     private Document doc = null;
@@ -77,7 +76,7 @@ public class XMLParser {
             }
 
             // Extraire les icones et créer les usines et l'entrepôt
-            for (int j = 5; j < NOMBRE_TYPE_USINE+NOMBRE_USINE; j++) {
+            for (int j = 5; j < usines.getLength(); j++) {
                 String sousType = usines.item(j).getAttributes().getNamedItem("type").getNodeValue();
                 if (sousType.equals(type)) {
                     int id = Integer.parseInt(usines.item(j).getAttributes().getNamedItem("id").getNodeValue());
@@ -122,9 +121,9 @@ public class XMLParser {
                 }
             });
 
-            chaine.noeuds.forEach(n -> {
-                if (n.getId() == startId) {
-                    n.setDestination(endCoordinates.get());
+            chaine.entrepot.getUsines().forEach(u -> {
+                if (u.getId() == startId) {
+                    u.setDestination(endCoordinates.get());
                 }
             });
 

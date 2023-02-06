@@ -12,7 +12,6 @@ public class Noeud {
     private String type;
     private int id;
     private Point coordinates;
-    private Point destination;
     private String sortieType;
     private Map<String, Integer> entreeTypes;
     private int intervalProduction;
@@ -59,14 +58,6 @@ public class Noeud {
 
     public void setCoordinates(Point coordinates) {
         this.coordinates = coordinates;
-    }
-
-    public Point getDestination() {
-        return this.destination;
-    }
-
-    public void setDestination(Point destination) {
-        this.destination = destination;
     }
 
     public String getSortieType() {

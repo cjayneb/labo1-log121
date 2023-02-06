@@ -37,6 +37,14 @@ public class Entrepot extends Noeud{
         strategieDeVente.vendre(avions);
     }
 
+    public List<Usine> getUsines() {
+        return usines;
+    }
+
+    public void setUsines(List<Usine> usines) {
+        this.usines = usines;
+    }
+
     public void addObserver(Usine usine) {
         this.usines.add(usine);
     }

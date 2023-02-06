@@ -8,7 +8,8 @@ import java.util.List;
 public class Usine extends Noeud implements IUsine {
 
     private Queue<Composant> composants = new LinkedList<>();
-
+    private Point destination;
+    private Point vecteurVitesse;
 
     public Usine(String type, int id, Point coordinates, String sortieType, Map<String, Integer> entrees, int intervalProduction, String iconeVide, String iconeUnTiers, String iconeDeuxTiers, String iconePlein) {
         super(type, id, coordinates, sortieType, entrees, intervalProduction, iconeVide, iconeUnTiers, iconeDeuxTiers, iconePlein);
@@ -27,7 +28,7 @@ public class Usine extends Noeud implements IUsine {
 
     public Composant produire() {
         // remove composants utilise
-        return new Composant(getIcone(String.format("\\src\\ressources\\{0}.png", getSortieType())), getCoordinates(), getVecteurVitesse(), getSortieType());
+        return new Composant(getIcone(String.format("\\src\\ressources\\{0}.png", getSortieType())), getCoordinates(), vecteurVitesse, getSortieType());
     }
 
     private Point getVecteurVitesse() {
@@ -38,6 +39,19 @@ public class Usine extends Noeud implements IUsine {
         // (0,1), (0,-1), (1,0), (-1,0), (1,1), (-1,-1), (-1,1), (1,-1)
 
         return new Point(x, y);
+    }
+
+    public Point getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Point destination) {
+        this.destination = destination;
+        setVecteurVitesse(getVecteurVitesse());
+    }
+
+    public void setVecteurVitesse(Point vecteurVitesse) {
+        this.vecteurVitesse = vecteurVitesse;
     }
 
     @Override
