@@ -14,7 +14,7 @@ public class Composant {
 
     public Composant(BufferedImage icone, Point position, Point vitesse, String type) {
         this.icone = icone;
-        this.position = position;
+        this.position = new Point(position.x, position.y);
         this.vitesse = vitesse;
         this.type = type;
     }

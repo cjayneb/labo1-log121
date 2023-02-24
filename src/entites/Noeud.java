@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class Noeud {
+public abstract class Noeud {
 
     private String type;
     private int id;
@@ -15,7 +15,6 @@ public class Noeud {
     private String sortieType;
     private Map<String, Integer> entreeTypes;
     private int intervalProduction;
-
     private BufferedImage iconeVide;
     private BufferedImage iconeUnTiers;
     private BufferedImage iconeDeuxTiers;
@@ -23,13 +22,12 @@ public class Noeud {
 
     public Noeud(){}
 
-    public Noeud(String type, int id, Point coordinates, String sortieType, Map<String, Integer> entrees, int intervalProduction, String iconeVide, String iconeUnTiers, String iconeDeuxTiers, String iconePlein) {
+    public Noeud(String type, int id, Point coordinates, String sortieType, Map<String, Integer> entrees, String iconeVide, String iconeUnTiers, String iconeDeuxTiers, String iconePlein) {
         this.type = type;
         this.id = id;
         this.coordinates = coordinates;
         this.sortieType = sortieType;
         this.entreeTypes = entrees;
-        this.intervalProduction = intervalProduction;
         this.iconeVide = getIcone(iconeVide);
         this.iconeUnTiers = getIcone(iconeUnTiers);
         this.iconeDeuxTiers = getIcone(iconeDeuxTiers);
@@ -76,14 +74,6 @@ public class Noeud {
         this.entreeTypes = entrees;
     }
 
-    public int getIntervalProduction() {
-        return intervalProduction;
-    }
-
-    public void setIntervalProduction(int intervalProduction) {
-        this.intervalProduction = intervalProduction;
-    }
-
     public BufferedImage getIconeVide() {
         return iconeVide;
     }
@@ -115,6 +105,8 @@ public class Noeud {
     public void setIconePlein(String iconePlein) {
         this.iconePlein = getIcone(iconePlein);
     }
+
+    public abstract BufferedImage getIconeToDisplay(int compteurTour);
 
     public BufferedImage getIcone(String path) {
         try {

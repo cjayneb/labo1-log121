@@ -14,8 +14,13 @@ public class Entrepot extends Noeud{
         setType("entrepot");
     }
 
-    public Entrepot(String type, int id, Point coordinates, String sortieType, Map<String, Integer> entrees, int intervalProduction, String iconeVide, String iconeUnTiers, String iconeDeuxTiers, String iconePlein) {
-        super(type, id, coordinates, sortieType, entrees, intervalProduction, iconeVide, iconeUnTiers, iconeDeuxTiers, iconePlein);
+    public Entrepot(String type, int id, Point coordinates, String sortieType, Map<String, Integer> entrees, String iconeVide, String iconeUnTiers, String iconeDeuxTiers, String iconePlein) {
+        super(type, id, coordinates, sortieType, entrees, iconeVide, iconeUnTiers, iconeDeuxTiers, iconePlein);
+    }
+
+    @Override
+    public BufferedImage getIconeToDisplay(int compteurTour) {
+        return getIconeVide();
     }
 
     public void ajouterAvion(Composant avion) {

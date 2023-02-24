@@ -84,17 +84,16 @@ public class XMLParser {
                     int y = Integer.parseInt(usines.item(j).getAttributes().getNamedItem("y").getNodeValue());
 
                     if (type.startsWith("u")) {
-                        Usine usine = new Usine(type, id, new Point(x, y), sortie, entrees, intervalProduction,
+                        Usine usine = new Usine(type, id, new Point(x-15, y-15), sortie, entrees, intervalProduction,
                                 iconeVide, iconeUnTiers, iconeDeuxTiers,
                                 iconePlein);
                         chaine.entrepot.addObserver(usine);
                         chaine.noeuds.add(usine);
                     } else {
                         chaine.entrepot.setId(id);
-                        chaine.entrepot.setCoordinates(new Point(x, y));
+                        chaine.entrepot.setCoordinates(new Point(x-15, y-15));
                         chaine.entrepot.setSortieType(sortie);
                         chaine.entrepot.setEntreeTypes(entrees);
-                        chaine.entrepot.setIntervalProduction(intervalProduction);
                         chaine.entrepot.setIconeVide(iconeVide);
                         chaine.entrepot.setIconeUnTiers(iconeUnTiers);
                         chaine.entrepot.setIconeDeuxTiers(iconeDeuxTiers);
@@ -110,24 +109,27 @@ public class XMLParser {
         for (int i = 0; i < chemins.getLength(); i++) {
             int startId = Integer.parseInt(chemins.item(i).getAttributes().getNamedItem("de").getNodeValue());
             int endId = Integer.parseInt(chemins.item(i).getAttributes().getNamedItem("vers").getNodeValue());
-            AtomicReference<Point> startCoordinates = new AtomicReference<>(new Point());
-            AtomicReference<Point> endCoordinates = new AtomicReference<>(new Point());
+            Point startCoordinates = new Point();
+            Point endCoordinates = new Point();
 
-            chaine.noeuds.forEach(n -> {
+            for (int j = 0; j < chaine.noeuds.size(); j++) {
+                Noeud n = chaine.noeuds.get(j);
                 if(n.getId() == startId) {
-                    startCoordinates.set(n.getCoordinates());
+                    startCoordinates.x = n.getCoordinates().x + 15;
+                    startCoordinates.y = n.getCoordinates().y + 15;
                 } else if (n.getId() == endId) {
-                    endCoordinates.set(n.getCoordinates());
+                    endCoordinates.x = n.getCoordinates().x + 15;
+                    endCoordinates.y = n.getCoordinates().y + 15;
                 }
-            });
+            }
 
             chaine.entrepot.getUsines().forEach(u -> {
                 if (u.getId() == startId) {
-                    u.setDestination(endCoordinates.get());
+                    u.setDestination(new Point(endCoordinates.x-15, endCoordinates.y-15));
                 }
             });
 
-            chaine.chemins.put(startCoordinates.get(), endCoordinates.get());
+            chaine.chemins.put(startCoordinates, endCoordinates);
         }
     }
 }
