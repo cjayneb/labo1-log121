@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Entrepot extends Noeud{
     private List<Usine> usines = new ArrayList<>();
-    private Queue<Composant> avions = new LinkedList<>();
     private StrategieDeVente strategieDeVente;
 
     public Entrepot(){
@@ -20,15 +19,25 @@ public class Entrepot extends Noeud{
 
     @Override
     public BufferedImage getIconeToDisplay(int compteurTour) {
+        float nombreMaxAvions = getEntreeTypes().getOrDefault("avion", 5);
+        float nombreActuelAvions = getComposantsEntree().size();
+        if (nombreActuelAvions > 0 && nombreActuelAvions <= nombreMaxAvions / 3) {
+            return getIconeUnTiers();
+        } else if (nombreActuelAvions > nombreMaxAvions / 3 && (nombreActuelAvions <= nombreMaxAvions * 2 / 3 || nombreActuelAvions < nombreMaxAvions)) {
+            return getIconeDeuxTiers();
+        } else if (nombreActuelAvions == nombreMaxAvions) {
+            notifyUsines(5);
+            return getIconePlein();
+        }
         return getIconeVide();
     }
 
-    public void ajouterAvion(Composant avion) {
-        if (avions.size() < getEntreeTypes().getOrDefault("avion", 5)) {
-            avions.add(avion);
-        }
-        notifyUsines(avions.size());
-    }
+//    public void ajouterAvion(Composant avion) {
+//        if (avions.size() < getEntreeTypes().getOrDefault("avion", 5)) {
+//            avions.add(avion);
+//        }
+//        notifyUsines(avions.size());
+//    }
 
     public StrategieDeVente getStrategieDeVente() {
         return strategieDeVente;
@@ -39,7 +48,7 @@ public class Entrepot extends Noeud{
     }
 
     public void vendreAvion() {
-        strategieDeVente.vendre(avions);
+        strategieDeVente.vendre(getComposantsEntree());
     }
 
     public List<Usine> getUsines() {

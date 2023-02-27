@@ -126,6 +126,7 @@ public class XMLParser {
             chaine.entrepot.getUsines().forEach(u -> {
                 if (u.getId() == startId) {
                     u.setDestination(new Point(endCoordinates.x-15, endCoordinates.y-15));
+                    u.setDestinationId(endId);
                 }
             });
 

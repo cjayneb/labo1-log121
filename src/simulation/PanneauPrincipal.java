@@ -13,12 +13,6 @@ import static simulation.Simulation.chaine;
 public class PanneauPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
-	// Variables temporaires de la demonstration:
-	private Point position = new Point(0,0);
-	private Point vitesse = new Point(1,1);
-	private int taille = 10;
-
 	private int compteurTour = 0;
 
 	public PanneauPrincipal() {
@@ -32,9 +26,7 @@ public class PanneauPrincipal extends JPanel {
 			compteurTour = 0;
 		}
 
-		// On ajoute à la position le delta x et y de la vitesse
-//		position.translate(vitesse.x, vitesse.y);
-//		g.fillRect(position.x, position.y, taille, taille);
+		// Commencer la visualisation lorsque le fichier de configuration a été chargé
 		if(chaine.noeuds.size() > 6) {
 			compteurTour += 5;
 
@@ -53,12 +45,18 @@ public class PanneauPrincipal extends JPanel {
 				u.getComposantsSortie().forEach(c -> {
 					if (u.composantArriveADestination(c)) {
 						composantsADetruire.add(c);
+
 					} else {
 						c.getPosition().translate(c.getVitesse().x, c.getVitesse().y);
 						g.drawImage(c.getIcone(), c.getPosition().x, c.getPosition().y, null);
 					}
 				});
 				u.getComposantsSortie().removeAll(composantsADetruire);
+				chaine.noeuds
+						.stream()
+						.filter(i -> i.getId() == u.getDestinationId())
+						.findFirst().get()
+						.getComposantsEntree().addAll(composantsADetruire);
 			});
 
 			// Dessiner les usines et les entrepots

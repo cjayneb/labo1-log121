@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 public abstract class Noeud {
 
@@ -14,6 +16,7 @@ public abstract class Noeud {
     private Point coordinates;
     private String sortieType;
     private Map<String, Integer> entreeTypes;
+    private Queue<Composant> composantsEntree = new LinkedList<>();
     private int intervalProduction;
     private BufferedImage iconeVide;
     private BufferedImage iconeUnTiers;
@@ -72,6 +75,14 @@ public abstract class Noeud {
 
     public void setEntreeTypes(Map<String, Integer> entrees) {
         this.entreeTypes = entrees;
+    }
+
+    public Queue<Composant> getComposantsEntree() {
+        return composantsEntree;
+    }
+
+    public void setComposantsEntree(Queue<Composant> composantsEntree) {
+        this.composantsEntree = composantsEntree;
     }
 
     public BufferedImage getIconeVide() {
