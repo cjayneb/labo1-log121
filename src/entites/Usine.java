@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class Usine extends Noeud implements IUsine {
 
+    private int vitesseComposants = 5;
+    private int intervalProductionDeBase;
     private int intervalProduction;
     private Queue<Composant> composantsSortie = new LinkedList<>();
     private Point destination;
@@ -17,6 +19,7 @@ public class Usine extends Noeud implements IUsine {
 
     public Usine(String type, int id, Point coordinates, String sortieType, Map<String, Integer> entrees, int intervalProduction, String iconeVide, String iconeUnTiers, String iconeDeuxTiers, String iconePlein) {
         super(type, id, coordinates, sortieType, entrees, iconeVide, iconeUnTiers, iconeDeuxTiers, iconePlein);
+        this.intervalProductionDeBase = intervalProduction;
         this.intervalProduction = intervalProduction;
     }
 
@@ -66,7 +69,7 @@ public class Usine extends Noeud implements IUsine {
         });
 
         composantsSortie.add(new Composant(getIcone(String.format("src/ressources/%s.png",
-                getSortieType())), getCoordinates(), vecteurVitesse, getSortieType()));
+                getSortieType())), getCoordinates(), getVecteurVitesse(), getSortieType()));
     }
 
     private Point getVecteurVitesse() {
@@ -74,15 +77,15 @@ public class Usine extends Noeud implements IUsine {
         int y = 0;
 
         if (destination.x < getCoordinates().x) {
-            x = -5;
+            x = -(vitesseComposants);
         } else if (destination.x > getCoordinates().x) {
-            x = 5;
+            x = vitesseComposants;
         }
 
         if (destination.y < getCoordinates().y) {
-            y = -5;
+            y = -(vitesseComposants);
         } else if (destination.y > getCoordinates().y) {
-            y = 5;
+            y = vitesseComposants;
         }
         return new Point(x, y);
     }
@@ -113,6 +116,11 @@ public class Usine extends Noeud implements IUsine {
     }
 
     @Override
+    public void ajouterComposantEntree(Composant composant) {
+        getComposantsEntree().add(composant);
+    }
+
+    @Override
     public BufferedImage getIconeToDisplay(int compteurTour) {
         if (peutProduire()) {
             if (compteurTour % intervalProduction > 1 && compteurTour % intervalProduction <= (intervalProduction/3)) {
@@ -138,13 +146,19 @@ public class Usine extends Noeud implements IUsine {
     }
 
     @Override
-    public void update(Object o) {
-        try {
-            if ((Integer) o == 5) {
-                stopProduction = true;
-            }
-        } catch (ClassCastException ignored) {
-
+    public void update(int nombreAvions) {
+        stopProduction = false;
+        vitesseComposants = 5;
+        intervalProduction = intervalProductionDeBase;
+        if (nombreAvions == 5) {
+            System.out.println("Entrepot limit reached!");
+            stopProduction = true;
+        }
+        if (nombreAvions > 2) {
+            intervalProduction += 100;
+        }
+        if (nombreAvions > 3) {
+            intervalProduction += 100;
         }
     }
 }

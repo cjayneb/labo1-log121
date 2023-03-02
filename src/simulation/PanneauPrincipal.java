@@ -45,18 +45,17 @@ public class PanneauPrincipal extends JPanel {
 				u.getComposantsSortie().forEach(c -> {
 					if (u.composantArriveADestination(c)) {
 						composantsADetruire.add(c);
-
+						chaine.noeuds
+								.stream()
+								.filter(n -> n.getId() == u.getDestinationId())
+								.findFirst().get()
+								.ajouterComposantEntree(c);
 					} else {
 						c.getPosition().translate(c.getVitesse().x, c.getVitesse().y);
 						g.drawImage(c.getIcone(), c.getPosition().x, c.getPosition().y, null);
 					}
 				});
 				u.getComposantsSortie().removeAll(composantsADetruire);
-				chaine.noeuds
-						.stream()
-						.filter(i -> i.getId() == u.getDestinationId())
-						.findFirst().get()
-						.getComposantsEntree().addAll(composantsADetruire);
 			});
 
 			// Dessiner les usines et les entrepots
@@ -66,7 +65,10 @@ public class PanneauPrincipal extends JPanel {
 						n.getCoordinates().y, null);
 			});
 
-
+			// Vendre un avion si la strategie de vente le permet
+			if (chaine.entrepot.getStrategieDeVente() != null) {
+				chaine.entrepot.vendreAvion();
+			}
 		}
 	}
 
