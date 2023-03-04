@@ -10,8 +10,6 @@ public class Composant {
     private Point position;
     private Point vitesse;
 
-    public Composant() {}
-
     public Composant(BufferedImage icone, Point position, Point vitesse, String type) {
         this.icone = icone;
         this.position = new Point(position.x, position.y);
@@ -23,31 +21,15 @@ public class Composant {
         return icone;
     }
 
-    public void setIcone(BufferedImage icone) {
-        this.icone = icone;
-    }
-
     public Point getPosition() {
         return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
     }
 
     public Point getVitesse() {
         return vitesse;
     }
 
-    public void setVitesse(Point vitesse) {
-        this.vitesse = vitesse;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

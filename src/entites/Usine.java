@@ -90,10 +90,6 @@ public class Usine extends Noeud implements IUsine {
         return new Point(x, y);
     }
 
-    public Point getDestination() {
-        return destination;
-    }
-
     public void setDestination(Point destination) {
         this.destination = destination;
         setVecteurVitesse(getVecteurVitesse());

@@ -17,7 +17,6 @@ public abstract class Noeud {
     private String sortieType;
     private Map<String, Integer> entreeTypes;
     private Queue<Composant> composantsEntree = new LinkedList<>();
-    private int intervalProduction;
     private BufferedImage iconeVide;
     private BufferedImage iconeUnTiers;
     private BufferedImage iconeDeuxTiers;
@@ -79,10 +78,6 @@ public abstract class Noeud {
 
     public Queue<Composant> getComposantsEntree() {
         return composantsEntree;
-    }
-
-    public void setComposantsEntree(Queue<Composant> composantsEntree) {
-        this.composantsEntree = composantsEntree;
     }
 
     public BufferedImage getIconeVide() {

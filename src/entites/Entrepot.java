@@ -54,10 +54,6 @@ public class Entrepot extends Noeud{
         return usines;
     }
 
-    public void setUsines(List<Usine> usines) {
-        this.usines = usines;
-    }
-
     public void addObserver(Usine usine) {
         this.usines.add(usine);
     }
