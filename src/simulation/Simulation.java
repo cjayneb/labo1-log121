@@ -15,7 +15,6 @@ public class Simulation {
 
 		environnement.addPropertyChangeListener(fenetre);
 		environnement.execute();
-
 	}
 
 }

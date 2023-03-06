@@ -114,7 +114,7 @@ public abstract class Noeud {
 
     public abstract void ajouterComposantEntree(Composant composant);
 
-    public abstract BufferedImage getIconeToDisplay(int compteurTour);
+    public abstract BufferedImage getIconeToDisplay();
 
     public BufferedImage getIcone(String path) {
         try {

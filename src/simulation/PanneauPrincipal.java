@@ -13,7 +13,6 @@ import static simulation.Simulation.chaine;
 public class PanneauPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int compteurTour = 0;
 
 	public PanneauPrincipal() {
 	}
@@ -22,13 +21,8 @@ public class PanneauPrincipal extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		if (compteurTour > 1000) {
-			compteurTour = 0;
-		}
-
 		// Commencer la visualisation lorsque le fichier de configuration a été chargé
 		if(chaine.noeuds.size() > 6) {
-			compteurTour += 5;
 
 			// Dessiner les chemins
 			chaine.chemins.forEach((k, l)-> {
@@ -37,7 +31,7 @@ public class PanneauPrincipal extends JPanel {
 
 			// Dessiner les composants
 			chaine.entrepot.getUsines().forEach(u -> {
-				if (u.productionCompletee(compteurTour)) {
+				if (u.productionCompletee()) {
 					u.produire();
 				}
 
@@ -60,7 +54,7 @@ public class PanneauPrincipal extends JPanel {
 
 			// Dessiner les usines et les entrepots
 			chaine.noeuds.forEach(n -> {
-				g.drawImage(n.getIconeToDisplay(compteurTour),
+				g.drawImage(n.getIconeToDisplay(),
 						n.getCoordinates().x,
 						n.getCoordinates().y, null);
 			});

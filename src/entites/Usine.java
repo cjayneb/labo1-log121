@@ -6,9 +6,13 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
+/**
+ *
+ */
 public class Usine extends Noeud implements IUsine {
 
     private int vitesseComposants = 5;
+    private int compteurInterval = 0;
     private int intervalProductionDeBase;
     private int intervalProduction;
     private Queue<Composant> composantsSortie = new LinkedList<>();
@@ -21,6 +25,7 @@ public class Usine extends Noeud implements IUsine {
         super(type, id, coordinates, sortieType, entrees, iconeVide, iconeUnTiers, iconeDeuxTiers, iconePlein);
         this.intervalProductionDeBase = intervalProduction;
         this.intervalProduction = intervalProduction;
+        this.compteurInterval = intervalProduction;
     }
 
     public boolean peutProduire() {
@@ -43,7 +48,8 @@ public class Usine extends Noeud implements IUsine {
                 quantitesActuelles.put(
                         c.getType(),
                         getComposantsEntree()
-                                .stream().filter(i -> i.getType().equals(c.getType())).collect(Collectors.toList()).size()
+                                .stream().filter(i -> i.getType().equals(c.getType()))
+                                .collect(Collectors.toList()).size()
                 );
             }
         });
@@ -117,22 +123,28 @@ public class Usine extends Noeud implements IUsine {
     }
 
     @Override
-    public BufferedImage getIconeToDisplay(int compteurTour) {
+    public BufferedImage getIconeToDisplay() {
         if (peutProduire()) {
-            if (compteurTour % intervalProduction > 1 && compteurTour % intervalProduction <= (intervalProduction/3)) {
+            compteurInterval -= 5;
+
+            int diff = intervalProduction - compteurInterval;
+
+            if (diff > 0 && diff <= (intervalProduction/3)) {
                 return getIconeUnTiers();
-            } else if (compteurTour % intervalProduction > (intervalProduction/3) && compteurTour % intervalProduction <= (intervalProduction*2/3)) {
+            } else if (diff > (intervalProduction/3) && diff <= (intervalProduction*2/3)) {
                 return getIconeDeuxTiers();
-            } else if (compteurTour % intervalProduction > (intervalProduction*2/3) && compteurTour % intervalProduction <= intervalProduction) {
-                return getIconePlein();
-            }
+            } else if (diff > (intervalProduction*2/3) && diff <= (intervalProduction+4)) { // <-- +4 permet aux intervalles de production
+                return getIconePlein();                                                     // d'être fixées à n'import quelle valeur
+            }                                                                               // (même si cette valeur n'est pas un multiple de cinq)
         }
+        compteurInterval = intervalProduction;
+
         return getIconeVide();
     }
 
-    public boolean productionCompletee(int compteurTour) {
+    public boolean productionCompletee() {
         if (peutProduire()) {
-            return compteurTour % intervalProduction == 0;
+            return intervalProduction - compteurInterval >= intervalProduction;
         }
         return false;
     }
@@ -142,18 +154,17 @@ public class Usine extends Noeud implements IUsine {
     }
 
     @Override
-    public void update(int nombreAvions) {
+    public void update(int nombreAvions, int nombreAvionsMax) {
         stopProduction = false;
         vitesseComposants = 5;
         intervalProduction = intervalProductionDeBase;
-        if (nombreAvions == 5) {
-            System.out.println("Entrepot limit reached!");
+        if (nombreAvions == nombreAvionsMax) {
             stopProduction = true;
         }
-        if (nombreAvions > 2) {
+        if (nombreAvions > (nombreAvionsMax*2/5)) {
             intervalProduction += 100;
         }
-        if (nombreAvions > 3) {
+        if (nombreAvions > (nombreAvionsMax*3/5)) {
             intervalProduction += 100;
         }
     }

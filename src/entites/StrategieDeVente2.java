@@ -6,11 +6,9 @@ public class StrategieDeVente2 implements StrategieDeVente {
 
     // Vendre a des intervalles fixes
     @Override
-    public void vendre(Entrepot entrepot) {
-        Queue<Composant> avions = entrepot.getComposantsEntree();
+    public void vendre(Queue<Composant> avions) {
         if (avions.size() > 2) {
             avions.remove();
-            entrepot.notifyUsines(avions.size());
         }
     }
 }

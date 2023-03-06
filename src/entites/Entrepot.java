@@ -20,11 +20,11 @@ public class Entrepot extends Noeud{
     @Override
     public void ajouterComposantEntree(Composant composant) {
         getComposantsEntree().add(composant);
-        notifyUsines(getComposantsEntree().size());
+        notifyUsines();
     }
 
     @Override
-    public BufferedImage getIconeToDisplay(int compteurTour) {
+    public BufferedImage getIconeToDisplay() {
         float nombreMaxAvions = getEntreeTypes().getOrDefault("avion", 5);
         float nombreActuelAvions = getComposantsEntree().size();
         if (nombreActuelAvions > 0 && nombreActuelAvions <= nombreMaxAvions / 3) {
@@ -32,7 +32,7 @@ public class Entrepot extends Noeud{
         } else if (nombreActuelAvions > nombreMaxAvions / 3 && (nombreActuelAvions <= nombreMaxAvions * 2 / 3 || nombreActuelAvions < nombreMaxAvions)) {
             return getIconeDeuxTiers();
         } else if (nombreActuelAvions == nombreMaxAvions) {
-            notifyUsines(getComposantsEntree().size());
+            notifyUsines();
             return getIconePlein();
         }
         return getIconeVide();
@@ -47,7 +47,8 @@ public class Entrepot extends Noeud{
     }
 
     public void vendreAvion() {
-        strategieDeVente.vendre(this);
+        strategieDeVente.vendre(getComposantsEntree());
+        notifyUsines();
     }
 
     public List<Usine> getUsines() {
@@ -62,9 +63,9 @@ public class Entrepot extends Noeud{
         this.usines.remove(usine);
     }
 
-    public void notifyUsines(int nombreAvions) {
+    public void notifyUsines() {
         for (Usine usine : this.usines) {
-            usine.update(nombreAvions);
+            usine.update(getComposantsEntree().size(), getEntreeTypes().get("avion"));
         }
     }
 

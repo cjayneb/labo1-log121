@@ -7,11 +7,9 @@ public class StrategieDeVente1 implements StrategieDeVente {
 
     // Vendre un avion selon une fonction aleatoire
     @Override
-    public void vendre(Entrepot entrepot) {
-        Queue<Composant> avions = entrepot.getComposantsEntree();
+    public void vendre(Queue<Composant> avions) {
         if (peutVendre(avions.size())) {
             avions.remove();
-            entrepot.notifyUsines(avions.size());
         }
     }
 
